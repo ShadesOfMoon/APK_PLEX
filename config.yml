@@ -1,0 +1,90 @@
+## This file is a template remove the .template to use the file
+
+libraries:
+  Films:
+    overlay_path:
+    - remove_overlays: false
+    - reapply_overlay: true
+    - pmm: resolution                                                      # 1
+    - pmm: audio_codec                                                     # 2
+    - pmm: mediastinger                                                    # 3
+    - pmm: ratings                                                         # 4, 5, 6
+      template_variables:
+        rating1: user                                                      # 4 as this is user and mass_user_rating_update: mdb_tomatoes
+        rating1_image: rt_tomato                                           # 4 as this is user and mass_user_rating_update: mdb_tomatoes
+        rating1_font: config/custom_fonts/Adlib.ttf                        # 4 local font accessible to PMM
+        rating1_font_size: 63                                              # 4 adjusted font size to fit rating
+        rating2: critic                                                    # 5 as this is critic and mass_critic_rating_update: imdb
+        rating2_image: imdb                                                # 5 as this is critic and mass_critic_rating_update: imdb
+        rating2_font: config/custom_fonts/Impact.ttf                       # 5 local font accessible to PMM
+        rating2_font_size: 70                                              # 5 adjusted font size to fit rating
+        rating3: audience                                                  # 6 as this is audience and mass_audience_rating_update: tmdb
+        rating3_image: tmdb                                                # 6 as this is audience and mass_audience_rating_update: tmdb
+        rating3_font: config/custom_fonts/Avenir_95_Black.ttf              # 6 local font accessible to PMM
+        rating3_font_size: 70                                              # 6 adjusted font size to fit rating
+        horizontal_position: right                                         # the set of ratings is on the right of the poster                                                         
+    - pmm: video_format                                                    # 8
+    - pmm: ribbon                                                          # 10, 11 Bottom right sash is used by more than one overlay so a weight for priority can be applied 
+    metadata_path:
+      - pmm: tautulli
+      - pmm: tmdb
+      - pmm: genre
+      - pmm: studio
+      - pmm: universe
+    operations:
+      mass_user_rating_update: mdb_tomatoes                              # 4 This operation will update the user rating in plex with Rotten Tomatoes ratings information
+      mass_critic_rating_update: imdb                                    # 5 This operation will update the critic rating in plex with IMDb ratings information
+      mass_audience_rating_update: tmdb                                  # 6 This operation will update the audience rating in plex with TMDb ratings information
+settings:
+  cache: true
+  cache_expiration: 60
+  asset_directory: config/assets
+  asset_folders: true
+  asset_depth: 0
+  create_asset_folders: false
+  prioritize_assets: false
+  dimensional_asset_rename: false
+  download_url_assets: false
+  show_missing_season_assets: false
+  show_missing_episode_assets: false
+  show_asset_not_needed: true
+  sync_mode: append
+  minimum_items: 1
+  default_collection_order:
+  delete_below_minimum: true
+  delete_not_scheduled: false
+  run_again_delay: 2
+  missing_only_released: false
+  only_filter_missing: false
+  show_unmanaged: true
+  show_filtered: false
+  show_options: false
+  show_missing: true
+  show_missing_assets: true
+  save_report: false
+  tvdb_language: eng
+  ignore_ids:
+  ignore_imdb_ids:
+  item_refresh_delay: 0
+  playlist_sync_to_user: all
+  playlist_report: false
+  verify_ssl: true
+  custom_repo:
+  check_nightly: false
+  show_unconfigured: true
+  playlist_exclude_users:
+plex:                                           # Can be individually specified per library as well; REQUIRED for the script to run
+  url: http://192.168.1.65:32400
+  token: 8Xqz6ksCWfwuxUvJbZXB
+  timeout: 60
+  clean_bundles: false
+  empty_trash: false
+  optimize: false
+tmdb:                                           # REQUIRED for the script to run
+  apikey: 1f039ea1cea90f0996ec8bdf88a7c777
+  language: en
+  cache_expiration: 60
+  region:
+tautulli:                                       # Can be individually specified per library as well
+  url: https://tautulli.speednas.duckdns.org/
+  apikey: 6062775835744226a87d00aaeb89b4c7
