@@ -19,9 +19,8 @@ command -v scp >/dev/null 2>&1 || { echo "SCP n'est pas installé. Abandon."; ex
 print_step "Liste des conteneurs disponibles sur cet hôte"
 docker ps --format "table {{.Names}}\t{{.Image}}"
 
-# Demander l'hôte distant et le chemin de destination
+# Demander l'hôte distant
 read -p "Entrez l'utilisateur et l'hôte distant (ex. user@remotehost) : " REMOTE_USER_HOST
-read -p "Entrez le chemin distant où transférer les images et volumes (ex. /tmp) : " REMOTE_PATH
 
 # Parcourir tous les conteneurs actifs
 docker ps --format "{{.Names}}" | while read CONTAINER_NAME; do
@@ -37,36 +36,14 @@ docker ps --format "{{.Names}}" | while read CONTAINER_NAME; do
   # Trouver les volumes associés au conteneur
   VOLUMES=$(docker inspect --format='{{range .Mounts}}{{.Source}}:{{.Destination}} {{end}}' "$CONTAINER_NAME")
 
-  # Exporter l'image Docker
-  EXPORT_FILE="${CONTAINER_NAME}_image.tar"
-  print_step "Exportation de l'image Docker : $IMAGE_NAME"
-  docker save -o "$EXPORT_FILE" "$IMAGE_NAME"
+  # Vérifier si l'image existe sur l'hôte distant ou la télécharger
+  print_step "Vérification ou téléchargement de l'image sur l'hôte distant"
+  ssh "$REMOTE_USER_HOST" "if ! docker images --format '{{.Repository}}:{{.Tag}}' | grep -qw $IMAGE_NAME; then docker pull $IMAGE_NAME; fi"
   if [ $? -ne 0 ]; then
-    echo "Erreur : Échec de l'exportation de l'image Docker pour le conteneur $CONTAINER_NAME."
+    echo "Erreur : Échec du téléchargement de l'image $IMAGE_NAME sur l'hôte distant."
     continue
   fi
-  echo "✔ Image exportée avec succès : $EXPORT_FILE"
-
-  # Transférer l'image à l'hôte distant
-  print_step "Transfert de l'image vers l'hôte distant"
-  scp "$EXPORT_FILE" "$REMOTE_USER_HOST:$REMOTE_PATH"
-  if [ $? -ne 0 ]; then
-    echo "Erreur : Échec du transfert de l'image Docker pour le conteneur $CONTAINER_NAME."
-    rm -f "$EXPORT_FILE"
-    continue
-  fi
-  echo "✔ Image transférée avec succès."
-
-  # Charger l'image sur l'hôte distant (et la télécharger si nécessaire)
-  print_step "Chargement de l'image sur l'hôte distant"
-  REMOTE_COMMAND="if ! docker images --format '{{.Repository}}:{{.Tag}}' | grep -qw $IMAGE_NAME; then docker pull $IMAGE_NAME; fi && docker load -i $REMOTE_PATH/$(basename $EXPORT_FILE) && docker images"
-  ssh "$REMOTE_USER_HOST" "$REMOTE_COMMAND"
-  if [ $? -ne 0 ]; then
-    echo "Erreur : Échec du chargement ou du téléchargement de l'image sur l'hôte distant pour le conteneur $CONTAINER_NAME."
-    rm -f "$EXPORT_FILE"
-    continue
-  fi
-  echo "✔ Image chargée ou téléchargée avec succès sur l'hôte distant."
+  echo "✔ Image disponible sur l'hôte distant."
 
   # Transférer les volumes associés
   print_step "Transfert des volumes associés"
@@ -83,28 +60,21 @@ docker ps --format "{{.Names}}" | while read CONTAINER_NAME; do
     VOLUME_ARCHIVE="${CONTAINER_NAME}_$(basename $SRC).tar.gz"
     echo "Archivage du volume $SRC..."
     tar -czf "$VOLUME_ARCHIVE" -C "$SRC" .
-    echo "Transfert du volume $SRC vers $REMOTE_USER_HOST:$REMOTE_PATH/$VOLUME_ARCHIVE..."
-    scp "$VOLUME_ARCHIVE" "$REMOTE_USER_HOST:$REMOTE_PATH"
+    echo "Transfert du volume $SRC vers $REMOTE_USER_HOST:$DEST..."
+    scp "$VOLUME_ARCHIVE" "$REMOTE_USER_HOST:/tmp/$VOLUME_ARCHIVE"
     if [ $? -ne 0 ]; then
       echo "Erreur : Échec du transfert du volume $SRC pour le conteneur $CONTAINER_NAME."
       rm -f "$VOLUME_ARCHIVE"
       continue
     fi
+
     echo "Extraction du volume sur l'hôte distant..."
-    ssh "$REMOTE_USER_HOST" "mkdir -p $DEST && tar -xzf $REMOTE_PATH/$VOLUME_ARCHIVE -C $DEST"
+    ssh "$REMOTE_USER_HOST" "mkdir -p $DEST && tar -xzf /tmp/$VOLUME_ARCHIVE -C $DEST && rm -f /tmp/$VOLUME_ARCHIVE"
     if [ $? -ne 0 ]; then
       echo "Erreur : Échec de l'extraction du volume sur l'hôte distant."
       rm -f "$VOLUME_ARCHIVE"
       continue
     fi
-
-    # Vérification de l'intégrité des données (optionnelle)
-    LOCAL_HASH=$(tar -cf - -C "$SRC" . | md5sum | awk '{print $1}')
-    REMOTE_HASH=$(ssh "$REMOTE_USER_HOST" "tar -cf - -C $DEST . | md5sum | awk '{print $1}'")
-    if [ "$LOCAL_HASH" != "$REMOTE_HASH" ]; then
-      echo "Erreur : L'intégrité des données pour le volume $SRC n'est pas respectée."
-    fi
-
     rm -f "$VOLUME_ARCHIVE"
   done
   echo "✔ Volumes transférés avec succès."
@@ -117,11 +87,6 @@ docker ps --format "{{.Names}}" | while read CONTAINER_NAME; do
     continue
   fi
   echo "✔ Conteneur recréé avec succès."
-
-  # Nettoyage local
-  print_step "Nettoyage local pour $CONTAINER_NAME"
-  rm -f "$EXPORT_FILE"
-  echo "✔ Nettoyage terminé pour $CONTAINER_NAME."
 done
 
 # Récapitulatif final
