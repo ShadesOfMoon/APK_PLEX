@@ -21,6 +21,7 @@ docker ps --format "table {{.Names}}\t{{.Image}}"
 
 # Demander l'hôte distant
 read -p "Entrez l'utilisateur et l'hôte distant (ex. user@remotehost) : " REMOTE_USER_HOST
+read -p "Entrez le chemin distant où transférer les images (ex. /tmp) : " REMOTE_PATH
 
 # Parcourir tous les conteneurs actifs
 docker ps --format "{{.Names}}" | while read CONTAINER_NAME; do
@@ -36,14 +37,35 @@ docker ps --format "{{.Names}}" | while read CONTAINER_NAME; do
   # Trouver les volumes associés au conteneur
   VOLUMES=$(docker inspect --format='{{range .Mounts}}{{.Source}}:{{.Destination}} {{end}}' "$CONTAINER_NAME")
 
-  # Vérifier si l'image existe sur l'hôte distant ou la télécharger
-  print_step "Vérification ou téléchargement de l'image sur l'hôte distant"
-  ssh "$REMOTE_USER_HOST" "if ! docker images --format '{{.Repository}}:{{.Tag}}' | grep -qw $IMAGE_NAME; then docker pull $IMAGE_NAME; fi"
+  # Exporter l'image Docker
+  EXPORT_FILE="${CONTAINER_NAME}_image.tar"
+  print_step "Exportation de l'image Docker : $IMAGE_NAME"
+  docker save -o "$EXPORT_FILE" "$IMAGE_NAME"
   if [ $? -ne 0 ]; then
-    echo "Erreur : Échec du téléchargement de l'image $IMAGE_NAME sur l'hôte distant."
+    echo "Erreur : Échec de l'exportation de l'image Docker pour le conteneur $CONTAINER_NAME."
     continue
   fi
-  echo "✔ Image disponible sur l'hôte distant."
+  echo "✔ Image exportée avec succès : $EXPORT_FILE"
+
+  # Transférer l'image à l'hôte distant
+  print_step "Transfert de l'image vers l'hôte distant"
+  scp "$EXPORT_FILE" "$REMOTE_USER_HOST:$REMOTE_PATH"
+  if [ $? -ne 0 ]; then
+    echo "Erreur : Échec du transfert de l'image Docker pour le conteneur $CONTAINER_NAME."
+    rm -f "$EXPORT_FILE"
+    continue
+  fi
+  echo "✔ Image transférée avec succès."
+
+  # Charger l'image sur l'hôte distant
+  print_step "Chargement de l'image sur l'hôte distant"
+  ssh "$REMOTE_USER_HOST" "docker load -i $REMOTE_PATH/$(basename $EXPORT_FILE) && docker images"
+  if [ $? -ne 0 ]; then
+    echo "Erreur : Échec du chargement de l'image sur l'hôte distant pour le conteneur $CONTAINER_NAME."
+    rm -f "$EXPORT_FILE"
+    continue
+  fi
+  echo "✔ Image chargée avec succès sur l'hôte distant."
 
   # Transférer les volumes associés
   print_step "Transfert des volumes associés"
@@ -87,6 +109,11 @@ docker ps --format "{{.Names}}" | while read CONTAINER_NAME; do
     continue
   fi
   echo "✔ Conteneur recréé avec succès."
+
+  # Nettoyage local
+  print_step "Nettoyage local pour $CONTAINER_NAME"
+  rm -f "$EXPORT_FILE"
+  echo "✔ Nettoyage terminé pour $CONTAINER_NAME."
 done
 
 # Récapitulatif final
