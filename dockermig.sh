@@ -13,7 +13,7 @@ function print_step() {
 print_step "Vérification des prérequis"
 command -v docker >/dev/null 2>&1 || { echo "Docker n'est pas installé. Abandon."; exit 1; }
 command -v ssh >/dev/null 2>&1 || { echo "SSH n'est pas installé. Abandon."; exit 1; }
-command -v scp >/dev/null 2>&1 || { echo "SCP n'est pas installé. Abandon."; exit 1; }
+command -v rsync >/dev/null 2>&1 || { echo "Rsync n'est pas installé. Abandon."; exit 1; }
 
 # Récupérer la liste de tous les conteneurs Docker
 print_step "Liste des conteneurs disponibles sur cet hôte"
@@ -47,9 +47,9 @@ docker ps --format "{{.Names}}" | while read CONTAINER_NAME; do
   fi
   echo "✔ Image exportée avec succès : $EXPORT_FILE"
 
-  # Transférer l'image à l'hôte distant
-  print_step "Transfert de l'image vers l'hôte distant"
-  scp "$EXPORT_FILE" "$REMOTE_USER_HOST:$REMOTE_PATH"
+  # Transférer l'image à l'hôte distant via rsync
+  print_step "Transfert de l'image vers l'hôte distant via rsync"
+  rsync -avz "$EXPORT_FILE" "$REMOTE_USER_HOST:$REMOTE_PATH"
   if [ $? -ne 0 ]; then
     echo "Erreur : Échec du transfert de l'image Docker pour le conteneur $CONTAINER_NAME."
     rm -f "$EXPORT_FILE"
@@ -67,8 +67,8 @@ docker ps --format "{{.Names}}" | while read CONTAINER_NAME; do
   fi
   echo "✔ Image chargée avec succès sur l'hôte distant."
 
-  # Transférer les volumes associés
-  print_step "Transfert des volumes associés"
+  # Transférer les volumes associés via rsync
+  print_step "Transfert des volumes associés via rsync"
   for VOLUME in $VOLUMES; do
     SRC=$(echo $VOLUME | cut -d':' -f1)
     DEST=$(echo $VOLUME | cut -d':' -f2)
@@ -79,25 +79,12 @@ docker ps --format "{{.Names}}" | while read CONTAINER_NAME; do
       continue
     fi
 
-    VOLUME_ARCHIVE="${CONTAINER_NAME}_$(basename $SRC).tar.gz"
-    echo "Archivage du volume $SRC..."
-    tar -czf "$VOLUME_ARCHIVE" -C "$SRC" .
-    echo "Transfert du volume $SRC vers $REMOTE_USER_HOST:$DEST..."
-    scp "$VOLUME_ARCHIVE" "$REMOTE_USER_HOST:/tmp/$VOLUME_ARCHIVE"
+    echo "Transfert du volume $SRC vers $REMOTE_USER_HOST:$DEST via rsync..."
+    rsync -avz "$SRC/" "$REMOTE_USER_HOST:$DEST/"
     if [ $? -ne 0 ]; then
       echo "Erreur : Échec du transfert du volume $SRC pour le conteneur $CONTAINER_NAME."
-      rm -f "$VOLUME_ARCHIVE"
       continue
     fi
-
-    echo "Extraction du volume sur l'hôte distant..."
-    ssh "$REMOTE_USER_HOST" "mkdir -p $DEST && tar -xzf /tmp/$VOLUME_ARCHIVE -C $DEST && rm -f /tmp/$VOLUME_ARCHIVE"
-    if [ $? -ne 0 ]; then
-      echo "Erreur : Échec de l'extraction du volume sur l'hôte distant."
-      rm -f "$VOLUME_ARCHIVE"
-      continue
-    fi
-    rm -f "$VOLUME_ARCHIVE"
   done
   echo "✔ Volumes transférés avec succès."
 
