@@ -1,0 +1,1109 @@
+{
+  "schemaVersion": 2,
+  "configProperties": {
+    "name": "default"
+  },
+  "categories": [
+    {
+      "id": "fb98ac80-f06d-4de7-bbf9-d0f77236838f",
+      "name": "Informations",
+      "position": 2
+    },
+    {
+      "id": "fafbbbc9-6647-458d-9e3b-1225ba518028",
+      "name": "Gestion des Médias",
+      "position": 3
+    },
+    {
+      "id": "ea357537-00b6-4fdc-b00a-db1ec42e1b7b",
+      "name": "Médias",
+      "position": 2
+    }
+  ],
+  "wrappers": [
+    {
+      "id": "default",
+      "position": 0
+    },
+    {
+      "id": "d6737175-0408-4912-ab80-4c912acbc86f",
+      "position": 2
+    },
+    {
+      "id": "bf54fe34-085c-4794-bcbf-9a1051e75592",
+      "position": 2
+    },
+    {
+      "id": "a6e8acb1-28f9-4bcd-8425-9b15fbe5d59e",
+      "position": 3
+    }
+  ],
+  "apps": [
+    {
+      "id": "39c75b42-a5a6-42fb-8e20-3e98779cc67e",
+      "name": "Qbittorrent",
+      "url": "https://qbittorrent.eurekaspeednas.net/#",
+      "appearance": {
+        "iconUrl": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/qbittorrent.svg",
+        "appNameStatus": "normal",
+        "positionAppName": "column",
+        "lineClampAppName": 1,
+        "appNameFontSize": 16
+      },
+      "network": {
+        "enabledStatusChecker": true,
+        "statusCodes": [
+          "200",
+          "301",
+          "302",
+          "304",
+          "307",
+          "308"
+        ]
+      },
+      "behaviour": {
+        "isOpeningNewTab": true,
+        "externalUrl": "https://qbittorrent.eurekaspeednas.net/#/"
+      },
+      "area": {
+        "type": "category",
+        "properties": {
+          "id": "fafbbbc9-6647-458d-9e3b-1225ba518028"
+        }
+      },
+      "shape": {
+        "md": {
+          "location": {
+            "x": 0,
+            "y": 3
+          },
+          "size": {
+            "width": 5,
+            "height": 1
+          }
+        },
+        "lg": {
+          "location": {
+            "x": 0,
+            "y": 3
+          },
+          "size": {
+            "width": 1,
+            "height": 1
+          }
+        }
+      },
+      "integration": {
+        "type": "qBittorrent",
+        "properties": [
+          {
+            "field": "username",
+            "type": "public",
+            "value": "admin",
+            "isDefined": true
+          },
+          {
+            "field": "password",
+            "type": "private",
+            "value": null,
+            "isDefined": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "a48e4f50-84d8-49f4-b6d7-3e6be7b02227",
+      "name": "Plex(Thème personalisé)",
+      "url": "https://plex.eurekaspeednas.net",
+      "appearance": {
+        "iconUrl": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/plex-alt.svg",
+        "appNameStatus": "normal",
+        "positionAppName": "column",
+        "lineClampAppName": 1,
+        "appNameFontSize": 16
+      },
+      "network": {
+        "enabledStatusChecker": true,
+        "statusCodes": [
+          "401"
+        ]
+      },
+      "behaviour": {
+        "isOpeningNewTab": true,
+        "externalUrl": "https://plex.eurekaspeednas.net",
+        "tooltipDescription": "Serveur Plex avec thème personnalisé"
+      },
+      "area": {
+        "type": "category",
+        "properties": {
+          "id": "ea357537-00b6-4fdc-b00a-db1ec42e1b7b"
+        }
+      },
+      "shape": {
+        "md": {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": 2,
+            "height": 1
+          }
+        },
+        "lg": {
+          "location": {
+            "x": 0,
+            "y": 1
+          },
+          "size": {
+            "width": 7,
+            "height": 1
+          }
+        },
+        "sm": {
+          "location": {
+            "x": 0,
+            "y": 4
+          },
+          "size": {
+            "width": 7,
+            "height": 2
+          }
+        }
+      },
+      "integration": {
+        "type": "plex",
+        "properties": [
+          {
+            "field": "apiKey",
+            "type": "private",
+            "value": null,
+            "isDefined": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "19a9d2b0-c253-42b7-b66f-ad01b9da542b",
+      "name": "Sonarr",
+      "url": "https://sonarr.eurekaspeednas.net",
+      "appearance": {
+        "iconUrl": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/sonarr.svg",
+        "appNameStatus": "normal",
+        "positionAppName": "column",
+        "lineClampAppName": 1,
+        "appNameFontSize": 16
+      },
+      "network": {
+        "enabledStatusChecker": true,
+        "statusCodes": [
+          "200",
+          "301",
+          "302",
+          "304",
+          "307",
+          "308"
+        ]
+      },
+      "behaviour": {
+        "isOpeningNewTab": true,
+        "externalUrl": "https://sonarr.eurekaspeednas.net"
+      },
+      "area": {
+        "type": "category",
+        "properties": {
+          "id": "fafbbbc9-6647-458d-9e3b-1225ba518028"
+        }
+      },
+      "shape": {
+        "md": {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": 5,
+            "height": 1
+          }
+        },
+        "lg": {
+          "location": {
+            "x": 0,
+            "y": 1
+          },
+          "size": {
+            "width": 7,
+            "height": 1
+          }
+        },
+        "sm": {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": 7,
+            "height": 2
+          }
+        }
+      },
+      "integration": {
+        "type": "sonarr",
+        "properties": [
+          {
+            "field": "apiKey",
+            "type": "private",
+            "value": null,
+            "isDefined": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "297e2f6c-eb56-4168-8abc-28ca6138872b",
+      "name": "Tautulli(Statistiques)",
+      "url": "https://tautulli.eurekaspeednas.net",
+      "appearance": {
+        "iconUrl": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/tautulli.svg",
+        "appNameStatus": "normal",
+        "positionAppName": "column",
+        "lineClampAppName": 1,
+        "appNameFontSize": 16
+      },
+      "network": {
+        "enabledStatusChecker": true,
+        "statusCodes": [
+          "200",
+          "301",
+          "302",
+          "304",
+          "307",
+          "308"
+        ]
+      },
+      "behaviour": {
+        "isOpeningNewTab": true,
+        "externalUrl": "https://tautulli.eurekaspeednas.net"
+      },
+      "area": {
+        "type": "category",
+        "properties": {
+          "id": "ea357537-00b6-4fdc-b00a-db1ec42e1b7b"
+        }
+      },
+      "shape": {
+        "md": {
+          "location": {
+            "x": 0,
+            "y": 1
+          },
+          "size": {
+            "width": 5,
+            "height": 1
+          }
+        },
+        "sm": {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": 7,
+            "height": 2
+          }
+        },
+        "lg": {
+          "location": {
+            "x": 0,
+            "y": 2
+          },
+          "size": {
+            "width": 7,
+            "height": 1
+          }
+        }
+      },
+      "integration": {
+        "type": null,
+        "properties": []
+      }
+    },
+    {
+      "id": "fdf86b5a-a168-4f85-8719-aac4d2c841d3",
+      "name": "Prowlarr",
+      "url": "https://prowlarr.eurekaspeednas.net",
+      "appearance": {
+        "iconUrl": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/prowlarr.svg",
+        "appNameStatus": "normal",
+        "positionAppName": "column",
+        "lineClampAppName": 1,
+        "appNameFontSize": 16
+      },
+      "network": {
+        "enabledStatusChecker": true,
+        "statusCodes": [
+          "200",
+          "301",
+          "302",
+          "304",
+          "307",
+          "308"
+        ]
+      },
+      "behaviour": {
+        "isOpeningNewTab": true,
+        "externalUrl": "https://prowlarr.eurekaspeednas.net"
+      },
+      "area": {
+        "type": "category",
+        "properties": {
+          "id": "fafbbbc9-6647-458d-9e3b-1225ba518028"
+        }
+      },
+      "shape": {
+        "md": {
+          "location": {
+            "x": 0,
+            "y": 2
+          },
+          "size": {
+            "width": 5,
+            "height": 1
+          }
+        },
+        "lg": {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": 7,
+            "height": 1
+          }
+        },
+        "sm": {
+          "location": {
+            "x": 0,
+            "y": 2
+          },
+          "size": {
+            "width": 7,
+            "height": 2
+          }
+        }
+      },
+      "integration": {
+        "type": "prowlarr",
+        "properties": [
+          {
+            "field": "apiKey",
+            "type": "private",
+            "value": null,
+            "isDefined": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "f1d0e518-d0e4-4ff0-a899-0feed41afb88",
+      "name": "Overseerr(Portail des demandes)",
+      "url": "https://overseerr.eurekaspeednas.net",
+      "appearance": {
+        "iconUrl": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/overseerr.svg",
+        "appNameStatus": "normal",
+        "positionAppName": "column",
+        "lineClampAppName": 1,
+        "appNameFontSize": 16
+      },
+      "network": {
+        "enabledStatusChecker": true,
+        "statusCodes": [
+          "200",
+          "301",
+          "302",
+          "304",
+          "307",
+          "308"
+        ]
+      },
+      "behaviour": {
+        "isOpeningNewTab": false,
+        "externalUrl": "https://overseerr.eurekaspeednas.net/"
+      },
+      "area": {
+        "type": "category",
+        "properties": {
+          "id": "ea357537-00b6-4fdc-b00a-db1ec42e1b7b"
+        }
+      },
+      "shape": {
+        "md": {
+          "location": {
+            "x": 2,
+            "y": 0
+          },
+          "size": {
+            "width": 3,
+            "height": 1
+          }
+        },
+        "lg": {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": 7,
+            "height": 1
+          }
+        },
+        "sm": {
+          "location": {
+            "x": 0,
+            "y": 2
+          },
+          "size": {
+            "width": 7,
+            "height": 2
+          }
+        }
+      },
+      "integration": {
+        "type": "overseerr",
+        "properties": [
+          {
+            "field": "apiKey",
+            "type": "private",
+            "value": null,
+            "isDefined": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "4ea18bbf-913e-43cc-ab48-7c9bc70b22d6",
+      "name": "Radarr",
+      "url": "https://radarr.eurekaspeednas.net",
+      "appearance": {
+        "iconUrl": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/radarr.svg",
+        "appNameStatus": "normal",
+        "positionAppName": "column",
+        "lineClampAppName": 1,
+        "appNameFontSize": 16
+      },
+      "network": {
+        "enabledStatusChecker": true,
+        "statusCodes": [
+          "200",
+          "301",
+          "302",
+          "304",
+          "307",
+          "308"
+        ]
+      },
+      "behaviour": {
+        "isOpeningNewTab": true,
+        "externalUrl": "https://radarr.eurekaspeednas.net",
+        "tooltipDescription": "Gestion des Films/Films d'animations"
+      },
+      "area": {
+        "type": "category",
+        "properties": {
+          "id": "fafbbbc9-6647-458d-9e3b-1225ba518028"
+        }
+      },
+      "shape": {
+        "md": {
+          "location": {
+            "x": 0,
+            "y": 1
+          },
+          "size": {
+            "width": 5,
+            "height": 1
+          }
+        },
+        "lg": {
+          "location": {
+            "x": 0,
+            "y": 2
+          },
+          "size": {
+            "width": 7,
+            "height": 1
+          }
+        },
+        "sm": {
+          "location": {
+            "x": 0,
+            "y": 4
+          },
+          "size": {
+            "width": 7,
+            "height": 2
+          }
+        }
+      },
+      "integration": {
+        "type": "radarr",
+        "properties": [
+          {
+            "field": "apiKey",
+            "type": "private",
+            "value": null,
+            "isDefined": true
+          }
+        ]
+      }
+    }
+  ],
+  "widgets": [
+    {
+      "id": "3ce976f6-b5b0-456d-9101-2ae4c4320792",
+      "type": "bookmark",
+      "properties": {
+        "name": "Raccourcis Importants",
+        "items": [
+          {
+            "id": "a53912d1-96cf-43d6-b14a-600428721136",
+            "name": "Plex(Windows)",
+            "href": "https://www.plex.tv/fr/media-server-downloads/?cat=plex+desktop&plat=windows#plex-app",
+            "iconUrl": "https://cdn.jsdelivr.net/gh/loganmarchione/homelab-svg-assets/assets/windows11.svg",
+            "openNewTab": true,
+            "hideHostname": true,
+            "hideIcon": false
+          },
+          {
+            "id": "b40669ef-8408-4152-a420-ebdd61592ee3",
+            "name": "Plex(MacOS)",
+            "href": "https://www.plex.tv/fr/media-server-downloads/?cat=plex+desktop&plat=macos#plex-app",
+            "iconUrl": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/apple.svg",
+            "openNewTab": true,
+            "hideHostname": true,
+            "hideIcon": false
+          },
+          {
+            "id": "0f6c5a94-377e-4dc5-81e8-e09f22778129",
+            "name": "Plex Apk(Android)",
+            "href": "https://github.com/ShadesOfMoon/APKPLEXEUREKA",
+            "iconUrl": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/android-light.png",
+            "openNewTab": true,
+            "hideHostname": true,
+            "hideIcon": false
+          },
+          {
+            "id": "ecdb9637-5bbc-4ade-9a41-dd38af0f2ae3",
+            "name": "Plex(Status)",
+            "href": "https://plex.statuspage.io/",
+            "iconUrl": "https://cdn.jsdelivr.net/gh/PapirusDevelopmentTeam/papirus_icons/src/apps_simple_system_monitor.svg",
+            "openNewTab": false,
+            "hideHostname": true,
+            "hideIcon": false
+          },
+          {
+            "id": "ea223e71-ad1a-4d40-8c3e-b2e81ad1d8fa",
+            "name": "Etats des services Eureka",
+            "href": "https://monitoring.eurekaspeednas.net/status/eurekamonitoring",
+            "iconUrl": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/uptime-kuma.svg",
+            "openNewTab": true,
+            "hideHostname": true,
+            "hideIcon": false
+          }
+        ],
+        "layout": "vertical"
+      },
+      "area": {
+        "type": "sidebar",
+        "properties": {
+          "location": "left"
+        }
+      },
+      "shape": {
+        "sm": {
+          "location": {
+            "x": 0,
+            "y": 3
+          },
+          "size": {
+            "width": 2,
+            "height": 3
+          }
+        },
+        "md": {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": 2,
+            "height": 4
+          }
+        },
+        "lg": {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": 2,
+            "height": 4
+          }
+        }
+      }
+    },
+    {
+      "id": "e3004052-6b83-480e-b458-56e8ccdca5f0",
+      "type": "weather",
+      "properties": {
+        "displayInFahrenheit": false,
+        "location": {
+          "name": "Villeneuve-d'Ascq",
+          "latitude": 50.61669,
+          "longitude": 3.16664
+        },
+        "displayCityName": true,
+        "displayWeekly": true,
+        "forecastDays": 5
+      },
+      "area": {
+        "type": "sidebar",
+        "properties": {
+          "location": "left"
+        }
+      },
+      "shape": {
+        "md": {
+          "location": {
+            "x": 0,
+            "y": 4
+          },
+          "size": {
+            "width": 2,
+            "height": 1
+          }
+        },
+        "sm": {
+          "location": {
+            "x": 0,
+            "y": 1
+          },
+          "size": {
+            "width": 2,
+            "height": 1
+          }
+        },
+        "lg": {
+          "location": {
+            "x": 0,
+            "y": 4
+          },
+          "size": {
+            "width": 2,
+            "height": 2
+          }
+        }
+      }
+    },
+    {
+      "id": "dab88fea-1848-49a7-9a20-931e7a7d38a0",
+      "type": "bookmark",
+      "properties": {
+        "name": "Sites intéressants",
+        "items": [
+          {
+            "id": "833e8feb-7b74-4791-a0d6-530432dd125c",
+            "name": "TVDB",
+            "href": "https://thetvdb.com/",
+            "iconUrl": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/tvdb.svg",
+            "openNewTab": false,
+            "hideHostname": false,
+            "hideIcon": false
+          },
+          {
+            "id": "5c6eecff-72a8-4239-8196-e1a422e2c773",
+            "name": "IMDB",
+            "href": "https://www.imdb.com/fr/",
+            "iconUrl": "https://cdn.jsdelivr.net/gh/PapirusDevelopmentTeam/papirus_icons/src/apps_imdb.svg",
+            "openNewTab": false,
+            "hideHostname": false,
+            "hideIcon": false
+          },
+          {
+            "id": "71c0a1ff-06b4-4e73-88d8-7e00e61015b1",
+            "name": "Nperf(Test de connexion Internet)",
+            "href": "https://www.nperf.com/fr/",
+            "iconUrl": "https://cdn.nperf.com/website/img/nperf-new-logo.svg",
+            "openNewTab": false,
+            "hideHostname": false,
+            "hideIcon": false
+          },
+          {
+            "id": "8fa80e42-cc6f-44d5-bd73-581d63e9b3f6",
+            "name": "Plex Wiki",
+            "href": "https://mediaclients.wiki/en/Plex",
+            "iconUrl": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/wikijs.svg",
+            "openNewTab": false,
+            "hideHostname": false,
+            "hideIcon": false
+          }
+        ],
+        "layout": "autoGrid"
+      },
+      "area": {
+        "type": "sidebar",
+        "properties": {
+          "location": "right"
+        }
+      },
+      "shape": {
+        "sm": {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": 1,
+            "height": 1
+          }
+        },
+        "md": {
+          "location": {
+            "x": 0,
+            "y": 2
+          },
+          "size": {
+            "width": 2,
+            "height": 6
+          }
+        },
+        "lg": {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": 1,
+            "height": 1
+          }
+        }
+      }
+    },
+    {
+      "id": "8b813086-2d81-4806-8d0b-e1039489c838",
+      "type": "date",
+      "properties": {
+        "timezone": "Europe/Paris",
+        "customTitle": "Villeneuve d'ascq",
+        "display24HourFormat": true,
+        "dateFormat": "dddd, MMMM D",
+        "titleState": "both"
+      },
+      "area": {
+        "type": "sidebar",
+        "properties": {
+          "location": "left"
+        }
+      },
+      "shape": {
+        "sm": {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": 2,
+            "height": 1
+          }
+        },
+        "md": {
+          "location": {
+            "x": 0,
+            "y": 5
+          },
+          "size": {
+            "width": 2,
+            "height": 1
+          }
+        },
+        "lg": {
+          "location": {
+            "x": 0,
+            "y": 6
+          },
+          "size": {
+            "width": 2,
+            "height": 1
+          }
+        }
+      }
+    },
+    {
+      "id": "a3704dce-3834-4acd-b3f4-9b57100d9a89",
+      "type": "media-requests-list",
+      "properties": {
+        "replaceLinksWithExternalHost": true,
+        "openInNewTab": true
+      },
+      "area": {
+        "type": "category",
+        "properties": {
+          "id": "fb98ac80-f06d-4de7-bbf9-d0f77236838f"
+        }
+      },
+      "shape": {
+        "sm": {
+          "location": {
+            "x": 0,
+            "y": 4
+          },
+          "size": {
+            "width": 7,
+            "height": 4
+          }
+        },
+        "md": {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": 5,
+            "height": 2
+          }
+        },
+        "lg": {
+          "location": {
+            "x": 0,
+            "y": 2
+          },
+          "size": {
+            "width": 7,
+            "height": 2
+          }
+        }
+      }
+    },
+    {
+      "id": "56e7cdcc-f5f2-4bba-8ca6-4141706e0b0a",
+      "type": "indexer-manager",
+      "properties": {},
+      "area": {
+        "type": "sidebar",
+        "properties": {
+          "location": "right"
+        }
+      },
+      "shape": {
+        "sm": {
+          "location": {
+            "x": 0,
+            "y": 2
+          },
+          "size": {
+            "width": 2,
+            "height": 2
+          }
+        },
+        "md": {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": 2,
+            "height": 2
+          }
+        },
+        "lg": {
+          "location": {
+            "x": 0,
+            "y": 2
+          },
+          "size": {
+            "width": 2,
+            "height": 3
+          }
+        }
+      }
+    },
+    {
+      "id": "8ab6041d-d7dd-4681-9c16-d9b87fe6e8a1",
+      "type": "dashdot",
+      "properties": {
+        "dashName": "RASP_4",
+        "url": "https://eurekadash.eurekaspeednas.net/",
+        "usePercentages": true,
+        "columns": 2,
+        "graphHeight": 115,
+        "graphsOrder": [
+          {
+            "key": "cpu",
+            "subValues": {
+              "enabled": true,
+              "multiView": true,
+              "span": 1
+            }
+          },
+          {
+            "key": "ram",
+            "subValues": {
+              "enabled": true,
+              "span": 1
+            }
+          },
+          {
+            "key": "network",
+            "subValues": {
+              "enabled": true,
+              "compactView": false,
+              "span": 2
+            }
+          },
+          {
+            "key": "storage",
+            "subValues": {
+              "enabled": true,
+              "compactView": false,
+              "span": 2,
+              "multiView": true
+            }
+          },
+          {
+            "key": "gpu",
+            "subValues": {
+              "enabled": false,
+              "span": 1
+            }
+          }
+        ]
+      },
+      "area": {
+        "type": "wrapper",
+        "properties": {
+          "id": "default"
+        }
+      },
+      "shape": {
+        "sm": {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": 2,
+            "height": 2
+          }
+        },
+        "md": {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": 5,
+            "height": 2
+          }
+        },
+        "lg": {
+          "location": {
+            "x": 0,
+            "y": 4
+          },
+          "size": {
+            "width": 2,
+            "height": 2
+          }
+        }
+      }
+    },
+    {
+      "id": "b11da70f-e726-41fe-8d47-52a8f58c14d6",
+      "type": "calendar",
+      "properties": {
+        "hideWeekDays": true,
+        "showUnmonitored": true,
+        "radarrReleaseType": "inCinemas",
+        "fontSize": "xs"
+      },
+      "area": {
+        "type": "wrapper",
+        "properties": {
+          "id": "default"
+        }
+      },
+      "shape": {
+        "sm": {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": 7,
+            "height": 4
+          }
+        },
+        "md": {
+          "location": {
+            "x": 0,
+            "y": 2
+          },
+          "size": {
+            "width": 5,
+            "height": 2
+          }
+        },
+        "lg": {
+          "location": {
+            "x": 0,
+            "y": 2
+          },
+          "size": {
+            "width": 7,
+            "height": 2
+          }
+        }
+      }
+    }
+  ],
+  "settings": {
+    "common": {
+      "searchEngine": {
+        "type": "google",
+        "properties": {}
+      }
+    },
+    "customization": {
+      "layout": {
+        "enabledLeftSidebar": true,
+        "enabledRightSidebar": true,
+        "enabledDocker": false,
+        "enabledPing": true,
+        "enabledSearchbar": true
+      },
+      "pageTitle": "OrgEureka",
+      "logoImageUrl": "https://i.imgur.com/xoG8Lf8.png",
+      "faviconUrl": "https://i.imgur.com/xoG8Lf8.png",
+      "backgroundImageUrl": "",
+      "customCss": "",
+      "colors": {
+        "primary": "red",
+        "secondary": "gray",
+        "shade": 6
+      },
+      "appOpacity": 100,
+      "gridstack": {
+        "columnCountSmall": 7,
+        "columnCountMedium": 5,
+        "columnCountLarge": 7
+      },
+      "backgroundImageAttachment": "fixed",
+      "backgroundImageRepeat": "no-repeat",
+      "backgroundImageSize": "cover",
+      "metaTitle": "OrgEureka"
+    },
+    "access": {
+      "allowGuests": true
+    }
+  }
+}
